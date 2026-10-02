@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Pablo Giordanelli — Campaña Risaralda
+   Tokens según el Manual de Identidad Visual v1.0 (jul. 2026).
+   Proporción de uso: 60 % neutros · 25 % rojo · 10 % naranja · 5 % turquesa.
+   ============================================================ */
+@theme {
+  /* --- PRIMARIOS (3.1) --- */
+  --color-rojo: #C31632;           /* Rojo Risaralda · autoridad · color de bloque */
+  --color-naranja: #EA4F33;        /* Naranja Pujanza · cercanía · énfasis */
+  --color-turquesa: #00E8BE;       /* Turquesa Conexión · firma · uso mínimo */
+
+  /* --- TONOS OPERATIVOS: solo interfaz y estados (3.2) --- */
+  --color-rojo-profundo: #8E0F24;
+  --color-turquesa-hondo: #00A98A;
+  --color-exito: #0FA36B;
+  --color-alerta: #C08A00;
+
+  /* --- NEUTROS (3.2) --- */
+  --color-grafito: #1A1A1A;
+  --color-niebla: #EEEDED;
+  --color-acero: #888888;
+
+  /* --- Alias semánticos --- */
+  --color-ink: #1A1A1A;             /* Grafito: todo el texto */
+  --color-ink-soft: #1A1A1A;        /* La jerarquía se da con peso y tamaño, no con color (4.3) */
+  /* Gris Acero (#888888) da 3,5:1 sobre blanco y no alcanza WCAG AA (6.4) en texto pequeño:
+     en pantalla se usa este gris oscurecido para metadatos. */
+  --color-ink-faint: #666666;
+  --color-bg: #FFFFFF;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #EEEDED;       /* Gris Niebla */
+  --color-line: #DCDBDB;            /* Línea */
+
+  /* --- TIPOGRAFÍA (4.4): Montserrat estructura, Inter texto corrido --- */
+  --font-display: var(--font-montserrat), Arial, Helvetica, sans-serif;
+  --font-body: var(--font-inter), "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* --- SOMBRAS: neutras y discretas --- */
+  --shadow-sm: 0 1px 2px rgba(26, 26, 26, 0.06);
+  --shadow-md: 0 12px 28px -14px rgba(26, 26, 26, 0.28);
+  --shadow-lg: 0 32px 64px -28px rgba(26, 26, 26, 0.5);
+
+  /* Radio de esquina único del sistema (6.4) */
+  --radius-brand: 6px;
+
+  /* Contenedor máximo 1280 px (6.4) */
+  --container-page: 1280px;
+
+  /* Puntos de corte 640 · 768 · 1024 · 1280 (6.4) */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
+:root {
+  --on-dark: #FFFFFF;
+  --on-dark-dim: rgba(255, 255, 255, 0.82);
+  /* Foco visible: contorno turquesa 3 px (6.4) */
+  --focus: 3px solid var(--color-turquesa);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+    -webkit-text-size-adjust: 100%;
+  }
+  /* Cuerpo digital: Inter 16 px / 1,65 · tracking +0,005 em (4.4) */
+  body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    letter-spacing: 0.005em;
+    color: var(--color-ink);
+    background: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  /* Subtitulares: Montserrat ExtraBold · interlínea 1,05 · tracking −20 (4.3) */
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+  /* Titular H1: sustituto web de Dazzle Unicase = Montserrat ExtraBold en caja alta,
+     interlínea 0,92 y tracking −25 en digital (4.3 · 4.4) */
+  h1 {
+    text-transform: uppercase;
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+  }
+  h3 {
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+  /* Los enlaces dentro del texto llevan subrayado, no solo color (3.5) */
+  p a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  :focus-visible {
+    outline: var(--focus);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--color-turquesa);
+    color: var(--color-grafito);
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: var(--container-page);
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+  @media (max-width: 639px) {
+    .container-page {
+      padding-inline: 16px;
+    }
+  }
+
+  /* Fondo Grafito: cierres, credenciales y piezas de tono serio (5.3) */
+  .surface-dark {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-grafito);
+    color: #fff;
+  }
+
+  /* Velo de Grafito sobre fotografía: todo texto sobre foto exige velo (3.5 · 5.5) */
+  .velo {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(95deg, rgba(26, 26, 26, 0.85) 12%, rgba(26, 26, 26, 0.7) 48%, rgba(26, 26, 26, 0.15) 88%);
+  }
+  .velo-bottom {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26, 26, 26, 0.85), transparent 50%);
+  }
+
+  /* Línea de tiempo: marcador sobre fondo Grafito */
+  .tl-item {
+    position: relative;
+    padding-left: 24px;
+  }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-turquesa);
+  }
+  .tl-item::after {
+    content: "";
+    position: absolute;
+    left: 4.5px;
+    top: 20px;
+    bottom: -24px;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .tl-item:last-child::after {
+    display: none;
+  }
+
+  .wall {
+    max-height: 560px;
+    overflow: auto;
+    padding-right: 4px;
+  }
+
+  .focus-ring:focus-visible {
+    outline: var(--focus);
+    outline-offset: 2px;
+  }
+}
+
+.reveal {
+  transform: translateY(20px);
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.reveal.in {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transform: none;
+    transition: none;
+  }
+}
+
+@keyframes pop {
+  from { transform: translateY(8px) scale(0.98); }
+  to { transform: none; }
+}
+@keyframes viewfade {
+  from { transform: translateY(8px); }
+  to { transform: none; }
+}
+.view-enter {
+  animation: viewfade 0.4s ease both;
+}
+.animate-pop {
+  animation: pop 0.35s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
